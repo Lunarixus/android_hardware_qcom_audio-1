@@ -18,6 +18,7 @@
 
 //#define LOG_NDEBUG 0
 #define LOG_TAG "AudioHardwareQSD"
+#include <log/log.h>
 #include <utils/Log.h>
 #include <utils/String8.h>
 #include <hardware_legacy/power.h>
@@ -1549,7 +1550,7 @@ uint32_t AudioHardware::getInputSampleRate(uint32_t sampleRate)
     uint32_t delta;
 
     for (i = 0, prevDelta = 0xFFFFFFFF; i < sizeof(inputSamplingRates)/sizeof(uint32_t); i++, prevDelta = delta) {
-        delta = abs(sampleRate - inputSamplingRates[i]);
+        delta = labs(sampleRate - inputSamplingRates[i]);
         if (delta > prevDelta) break;
     }
     // i is always > 0 here
